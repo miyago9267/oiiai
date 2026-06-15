@@ -22,13 +22,13 @@ jobs:
         run: swift --version
 
       - name: Build DMG
-        run: ./oiiai/scripts/build-dmg.sh
+        run: ./scripts/build-dmg.sh
 
       - name: Upload DMG
         uses: actions/upload-artifact@v7
         with:
           name: UselessOiiaiCat-dmg
-          path: oiiai/dist/UselessOiiaiCat.dmg
+          path: dist/UselessOiiaiCat.dmg
           if-no-files-found: error
 
       - name: Update release DMG
@@ -39,9 +39,9 @@ jobs:
           if ! gh release view latest >/dev/null 2>&1; then
             gh release create latest \
               --title latest \
-              --notes "![](https://github.com/${{ github.repository }}/blob/main/oiiai/assets/oiiai-transparent.gif?raw=true)" \
+              --notes "![](https://github.com/${{ github.repository }}/blob/main/assets/oiiai-transparent.gif?raw=true)" \
               --latest
           fi
 
-          gh release upload latest oiiai/dist/UselessOiiaiCat.dmg --clobber
+          gh release upload latest dist/UselessOiiaiCat.dmg --clobber
           gh release edit latest --latest

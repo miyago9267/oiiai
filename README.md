@@ -1,1 +1,1 @@
-![](oiiai/assets/oiiai-transparent.gif)
+![](assets/oiiai-transparent.gif)

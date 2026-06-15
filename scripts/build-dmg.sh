@@ -8,7 +8,8 @@ STAGING_DIR="$DIST_DIR/dmg-root"
 APP_BUNDLE="$STAGING_DIR/$APP_NAME.app"
 DMG_PATH="$DIST_DIR/$APP_NAME.dmg"
 
-rm -rf "$DIST_DIR"
+mkdir -p "$DIST_DIR"
+rm -rf "$STAGING_DIR" "$DMG_PATH"
 mkdir -p "$APP_BUNDLE/Contents/MacOS" "$APP_BUNDLE/Contents/Resources"
 
 swift build --package-path "$ROOT" -c release
