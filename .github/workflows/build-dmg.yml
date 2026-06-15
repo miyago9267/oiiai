@@ -7,16 +7,13 @@ on:
   pull_request:
   workflow_dispatch:
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 jobs:
   build:
     runs-on: macos-15
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Show Swift version
         run: swift --version
@@ -25,7 +22,7 @@ jobs:
         run: ./oiiai/scripts/build-dmg.sh
 
       - name: Upload DMG
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: UselessOiiaiCat-dmg
           path: oiiai/dist/UselessOiiaiCat.dmg
