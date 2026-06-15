@@ -33,10 +33,15 @@ jobs:
 
       - name: Update release DMG
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: latest
-          name: latest
-          body: "![](https://github.com/${{ github.repository }}/blob/main/oiiai/assets/oiiai-transparent.gif?raw=true)"
-          files: oiiai/dist/UselessOiiaiCat.dmg
-          make_latest: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh release view latest >/dev/null 2>&1; then
+            gh release create latest \
+              --title latest \
+              --notes "![](https://github.com/${{ github.repository }}/blob/main/oiiai/assets/oiiai-transparent.gif?raw=true)" \
+              --latest
+          fi
+
+          gh release upload latest oiiai/dist/UselessOiiaiCat.dmg --clobber
+          gh release edit latest --latest
