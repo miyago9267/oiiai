@@ -7,6 +7,9 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: macos-15
@@ -27,3 +30,13 @@ jobs:
           name: UselessOiiaiCat-dmg
           path: oiiai/dist/UselessOiiaiCat.dmg
           if-no-files-found: error
+
+      - name: Update release DMG
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: latest
+          body: "![](https://github.com/${{ github.repository }}/blob/main/oiiai/assets/oiiai-transparent.gif?raw=true)"
+          files: oiiai/dist/UselessOiiaiCat.dmg
+          make_latest: true
