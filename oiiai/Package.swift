@@ -16,7 +16,6 @@ let package = Package(
             path: ".",
             exclude: [
                 ".build",
-                "README.md",
                 "dist",
                 "scripts"
             ],
